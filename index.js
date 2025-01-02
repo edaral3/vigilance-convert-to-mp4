@@ -2,12 +2,6 @@ const path = require('path');
 const fs = require('fs');
 
 const AWS = require('aws-sdk');
-
-/*AWS.config.update({
-  accessKeyId: 'AKIA3FRRI3R7VIZUYL6D',
-  secretAccessKey: 's/1mt7dAXJj34alHrZpm7/Z8EnVidIs2PFIrrFwv',
-  region: 'us-east-1' // replace with your region
-});*/
 const s3 = new AWS.S3();
 
 const BUCKET_NAME = 'vigilance-records';
@@ -32,16 +26,14 @@ const concatTSFiles = async (dir, name) => {
 
     const dataFile = fs.readFileSync(output);
 
-    console.log("sdfgsdfg testing")
     const data = {
       Bucket: BUCKET_NAME,
       Key: `${dir}/${name}.mp4`,
       Body: dataFile,
-      ContentType: 'text/plain',
+      ContentType: 'video/mp4',
     };
     
     const asd = await s3.putObject(data).promise();
-    console.log("asd", asd)
   } catch (error) {
     console.log('error', error)
   }
