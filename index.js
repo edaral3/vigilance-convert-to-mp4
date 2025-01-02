@@ -17,9 +17,11 @@ const concatTSFiles = async (dir, name) => {
     if(tsFiles.length < 10) return
     
     const writeStream = fs.createWriteStream(output);
+    let video = '';
     for (const tsFile of tsFiles) {
       const fileName = `${INPUT}/${dir}/${tsFile}`
       const readStream = fs.readFileSync(fileName);
+      video +=readStream
       writeStream.write(readStream);
     }
     writeStream.end();
@@ -29,7 +31,7 @@ const concatTSFiles = async (dir, name) => {
     const data = {
       Bucket: BUCKET_NAME,
       Key: `${dir}/${name}.mp4`,
-      Body: dataFile,
+      Body: readStream,
       ContentType: 'video/mp4',
     };
     
