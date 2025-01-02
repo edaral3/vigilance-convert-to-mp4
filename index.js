@@ -14,6 +14,7 @@ const concatTSFiles = async (dir, name) => {
   try {
     const output = `${OUPUT}/${dir}/${name}.mp4`;
     const tsFiles = fs.readdirSync(`${INPUT}/${dir}`).filter(file => file.endsWith('.ts')).slice(20);
+    console.log(tsFiles)
     if(tsFiles.length < 10) return
     
     const writeStream = fs.createWriteStream(output);
