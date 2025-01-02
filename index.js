@@ -31,7 +31,7 @@ const concatTSFiles = async (dir, name) => {
     const data = {
       Bucket: BUCKET_NAME,
       Key: `${dir}/${name}.mp4`,
-      Body: readStream,
+      Body: video,
       ContentType: 'video/mp4',
     };
     
