@@ -13,8 +13,9 @@ const s3 = new AWS.S3({
 const OUPUT = '/mp4'
 const INPUT = '/efs/hls'
 
-const concatTSFiles = async (dir, output, name) => {
+const concatTSFiles = async (dir, name) => {
   try {
+    const output = `${OUPUT}/${dir}/${name}.mp4`;
     const tsFiles = fs.readdirSync(`${INPUT}/${dir}`).filter(file => file.endsWith('.ts')).slice(20);
     const writeStream = fs.createWriteStream(output);
 
@@ -29,7 +30,7 @@ const concatTSFiles = async (dir, output, name) => {
 
     const data = {
       Bucket: BUCKET_NAME,
-      Key: `${OUPUT}/${dir}/${name}.mp4`,
+      Key: `${dir}/${name}.mp4`,
       Body: dataFile,
       ContentType: 'application/text',
     };
@@ -42,13 +43,17 @@ const concatTSFiles = async (dir, output, name) => {
 
 const main = async () => {
   const directories = fs.readdirSync(INPUT);
+  const test1 = fs.readdirSync('/');
+  console.log('test1', test1);
+  const test2 = fs.readdirSync(OUPUT);
+  console.log('test2', test2);
 
   const now = new Date();
   now.setHours(now.getHours() - 6);
   const dateString = now.toISOString().split('T')[0];
 
   for (const dir of directories) {
-    concatTSFiles(dir, `${OUPUT}/${dateString}.mp4`, dateString);
+    concatTSFiles(dir, dateString);
   }
 }
 
