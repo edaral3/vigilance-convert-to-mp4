@@ -32,6 +32,7 @@ const concatTSFiles = async (dir, name) => {
 
     const dataFile = fs.readFileSync(output);
 
+    console.log("sdfgsdfg testing")
     const data = {
       Bucket: BUCKET_NAME,
       Key: `${dir}/${name}.mp4`,
@@ -39,7 +40,8 @@ const concatTSFiles = async (dir, name) => {
       ContentType: 'text/plain',
     };
     
-    await s3.putObject(data).promise();
+    const asd = await s3.putObject(data).promise();
+    console.log("asd", asd)
   } catch (error) {
     console.log('error', error)
   }
