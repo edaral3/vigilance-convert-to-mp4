@@ -7,27 +7,18 @@ const s3 = new AWS.S3();
 const BUCKET_NAME = 'vigilance-records';
 const REGION = 'us-east-1';
 
-const OUPUT = '/mp4'
 const INPUT = '/efs/hls'
 
 const concatTSFiles = async (dir, name) => {
   try {
-    const output = `${OUPUT}/${dir}/${name}.mp4`;
     const tsFiles = fs.readdirSync(`${INPUT}/${dir}`).filter(file => file.endsWith('.ts')).slice(20);
-    console.log(tsFiles)
     if(tsFiles.length < 10) return
     
-    //const writeStream = fs.createWriteStream(output);
     let bufferVideo = [];
     for (const tsFile of tsFiles) {
       const readStream = fs.readFileSync(`${INPUT}/${dir}/${tsFile}`);
       bufferVideo.push(readStream)
-      //console.log(readStream)
-      //writeStream.write(readStream);
     }
-    //writeStream.end();
-
-    //const dataFile = fs.readFileSync(output);
 
     const data = {
       Bucket: BUCKET_NAME,
