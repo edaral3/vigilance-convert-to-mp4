@@ -23,9 +23,9 @@ const concatTSFiles = async (dir, name) => {
       writeStream.write(readStream);
     }
     writeStream.end();
-
+    console.log('test')
     const dataFile = fs.readFileSync(output);
-
+    console.log(dataFile)
     const data = {
       Bucket: BUCKET_NAME,
       Key: `${dir}/${name}.mp4`,
