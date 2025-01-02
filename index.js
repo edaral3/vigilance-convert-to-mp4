@@ -17,8 +17,9 @@ const concatTSFiles = async (dir, name) => {
   try {
     const output = `${OUPUT}/${dir}/${name}.mp4`;
     const tsFiles = fs.readdirSync(`${INPUT}/${dir}`).filter(file => file.endsWith('.ts')).slice(20);
+    if(tsFiles.length < 10) return
+    
     const writeStream = fs.createWriteStream(output);
-
     for (const tsFile of tsFiles) {
       const fileName = path.join(__dirname, `${INPUT}/${dir}/${tsFile}`)
       const readStream = fs.readFileSync(fileName);
@@ -36,17 +37,13 @@ const concatTSFiles = async (dir, name) => {
     };
   
     await s3.upload(data).promise();
-  } catch {
-
+  } catch (error) {
+    console.log('error', error)
   }
 }
 
 const main = async () => {
   const directories = fs.readdirSync(INPUT);
-  const test1 = fs.readdirSync('/');
-  console.log('test1', test1);
-  const test2 = fs.readdirSync(OUPUT);
-  console.log('test2', test2);
 
   const now = new Date();
   now.setHours(now.getHours() - 6);
