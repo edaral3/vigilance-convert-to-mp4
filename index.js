@@ -2,13 +2,11 @@ const path = require('path');
 const fs = require('fs');
 
 const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
 
 const BUCKET_NAME = 'vigilance-records';
 const REGION = 'us-east-1';
 
-const s3 = new AWS.S3({
-  params: { Bucket: BUCKET_NAME, region: REGION },
-});
 
 const OUPUT = '/mp4'
 const INPUT = '/efs/hls'
@@ -33,7 +31,7 @@ const concatTSFiles = async (dir, name) => {
       Bucket: BUCKET_NAME,
       Key: `${dir}/${name}.mp4`,
       Body: dataFile,
-      ContentType: 'application/text',
+      ContentType: 'text/plain',
     };
   
     await s3.upload(data).promise();
