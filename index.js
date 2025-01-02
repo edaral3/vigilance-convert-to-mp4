@@ -10,7 +10,7 @@ const s3 = new AWS.S3({
   params: { Bucket: BUCKET_NAME, region: REGION },
 });
 
-const OUPUT = 'mp4'
+const OUPUT = '/mp4'
 const INPUT = '/efs/hls'
 
 const concatTSFiles = async (dir, output, name) => {
