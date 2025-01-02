@@ -24,7 +24,7 @@ const concatTSFiles = async (dir, name) => {
     
     const writeStream = fs.createWriteStream(output);
     for (const tsFile of tsFiles) {
-      const fileName = path.join(__dirname, `${INPUT}/${dir}/${tsFile}`)
+      const fileName = `${INPUT}/${dir}/${tsFile}`
       const readStream = fs.readFileSync(fileName);
       writeStream.write(readStream);
     }
