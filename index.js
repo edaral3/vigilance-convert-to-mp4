@@ -34,14 +34,7 @@ const concatTSFiles = async (dir, name) => {
       ContentType: 'text/plain',
     };
     
-    s3.upload(data, function (err, data) {
-      if (err) {
-        console.log("Error uploading file: ", err);
-      } else {
-        console.log("File uploaded successfully: ", data.Location);
-      }
-    });
-    await s3.upload(data).promise();
+    await s3.putObject(data).promise();
   } catch (error) {
     console.log('error', error)
   }
