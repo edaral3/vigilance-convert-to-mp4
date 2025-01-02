@@ -3,11 +3,11 @@ const fs = require('fs');
 
 const AWS = require('aws-sdk');
 
-AWS.config.update({
+/*AWS.config.update({
   accessKeyId: 'AKIA3FRRI3R7VIZUYL6D',
   secretAccessKey: 's/1mt7dAXJj34alHrZpm7/Z8EnVidIs2PFIrrFwv',
   region: 'us-east-1' // replace with your region
-});
+});*/
 const s3 = new AWS.S3();
 
 const BUCKET_NAME = 'vigilance-records';
