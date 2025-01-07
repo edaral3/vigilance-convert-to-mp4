@@ -12,10 +12,8 @@ const concatTSFiles = async (dir, name) => {
         if (tsFiles.length < 10) return
 
         let bufferVideo = [];
-        tsFiles.slice(0, 588)
         for (const tsFile of tsFiles) {
             const readStream = fs.readFileSync(`${INPUT}/${dir}/${tsFile}`);
-
             bufferVideo.push(readStream)
         }
 
